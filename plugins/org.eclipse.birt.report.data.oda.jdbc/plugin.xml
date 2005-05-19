@@ -153,7 +153,6 @@
                   defaultDisplayName="Query Properties"
                   name="queryProperties">
                <property
-                     defaultValue="0"
                      type="string"
                      defaultDisplayName="Query Time Out (in seconds)"
                      canInherit="true"

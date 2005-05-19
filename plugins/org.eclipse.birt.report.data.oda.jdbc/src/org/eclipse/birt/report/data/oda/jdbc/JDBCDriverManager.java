@@ -14,8 +14,6 @@ package org.eclipse.birt.report.data.oda.jdbc;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.sql.Connection;
@@ -29,8 +27,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.eclipse.birt.data.oda.OdaException;
-import org.eclipse.birt.data.oda.util.manifest.ExtensionManifest;
-import org.eclipse.birt.data.oda.util.manifest.ManifestExplorer;
 
 /**
  * Utility classs that manages the JDBC drivers available to this bridge driver.
