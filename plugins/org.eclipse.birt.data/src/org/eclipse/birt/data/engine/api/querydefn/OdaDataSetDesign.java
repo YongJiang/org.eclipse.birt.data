@@ -171,7 +171,8 @@ public class OdaDataSetDesign extends BaseDataSetDesign
         if ( values == null )
             values = new HashSet();
  
-        // add given value to the set of values
+        // add given value to the set of values;
+        // any property value, including null, is passed to the underlying data provider
         values.add( value );
         
         properties.put( name, values );

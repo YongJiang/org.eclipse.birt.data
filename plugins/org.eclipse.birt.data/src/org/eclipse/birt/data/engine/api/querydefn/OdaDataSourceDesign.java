@@ -113,7 +113,10 @@ public class OdaDataSourceDesign extends BaseDataSourceDesign
             throw new DataException( ResourceConstants.DUPLICATE_PROPERTY_NAME,
 					name );
         
-		properties.put( name, value );
+        // since the ultimate destination used is a java.util.Properties,
+        // a null property value is not accepted
+        if ( value != null )
+            properties.put( name, value );
     }
    
 }
