@@ -17,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.eclipse.birt.data.oda.IParameterMetaData;
@@ -136,14 +137,22 @@ public class Statement implements IQuery
 		
 		if ( name.equals("queryTimeOut") )
 		{
-			try
+			// Ignore null or empty value
+			if ( value != null && value.length() > 0 )
 			{
-				this.preStat.setQueryTimeout( Integer.parseInt(value ));
-			}
-			catch ( SQLException e )
-			{
-				throw new JDBCException( ResourceConstants.CANNOT_SET_QUERY_TIMEOUT,
-						e );
+				try
+				{
+					// Be forgiving if a floating point gets passed in - can happen 
+					// when Javascript gets involved in calculating the property value
+					double secs = Double.parseDouble( value );
+					this.preStat.setQueryTimeout( (int) secs );
+				}
+				catch ( SQLException e )
+				{
+					// This is not an essential property; log and ignore error if driver doesn't
+					// support query timeout
+					logger.log( Level.FINE, "Statement.setQueryTimeout failed", e );
+				}
 			}
 		}
 		else
