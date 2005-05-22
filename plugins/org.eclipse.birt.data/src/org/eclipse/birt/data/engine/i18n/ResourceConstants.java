@@ -30,7 +30,7 @@ public class ResourceConstants
 	public final static String DUPLICATE_PROPERTY_NAME = "data.engine.DupPropertyName";
 	public final static String SUBQUERY_NOT_FOUND = "data.engine.NoSubQueryName";
 
-	public final static String MISSING_DRIVERNAME = "data.engine.DataSourceMissingDriver";
+	public final static String MISSING_DATASOURCE_EXT_ID = "data.engine.DataSourceMissingExtId";
 	public final static String STARTING_GROUP_VALUE_CANNOT_BE_NULL = "data.engine.NullGroupStart";
 	
 	public final static String RESULT_CLOSED = "data.engine.ResultClosed";
