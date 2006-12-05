@@ -17,6 +17,7 @@ package org.eclipse.birt.data.engine.odaconsumer;
 import java.util.Hashtable;
 import java.util.Properties;
 
+import org.eclipse.birt.data.oda.util.manifest.DtpManifestExplorer;
 import org.eclipse.datatools.connectivity.oda.util.manifest.ManifestExplorer;
 import org.eclipse.datatools.connectivity.oda.util.manifest.DataSetType;
 import org.eclipse.datatools.connectivity.oda.util.manifest.DataTypeMapping;
@@ -52,7 +53,14 @@ public class ManifestExplorerTest extends OdaconsumerTestCase
 		    ManifestExplorer.getInstance().getExtensionManifests();
 		verifyExtensionConfigs( configs );
 	}
-		
+	
+	public void testGetExtensionConfigsCompatibility() throws Exception
+	{
+		ExtensionManifest[] configs = 
+		    DtpManifestExplorer.getInstance().getExtensionManifests();
+		verifyExtensionConfigs( configs );
+	}
+	
 	void verifyExtensionConfigs( ExtensionManifest[] configs )
 	{
 		for( int i = 0; i < configs.length; i++ )
@@ -78,7 +86,7 @@ public class ManifestExplorerTest extends OdaconsumerTestCase
 	public void testGetExtensionConfigCompatibility() throws Exception
 	{
 		ExtensionManifest config = 
-			ManifestExplorer.getInstance().getExtensionManifest( m_jdbcId );
+			DtpManifestExplorer.getInstance().getExtensionManifest( m_jdbcId );
 		verifyExtensionConfig( config );
 	}
 	

@@ -29,6 +29,7 @@ public class OdaConsumerTests
 
 		/* in package org.eclipse.birt.data.engine.odaconsumer */
 		suite.addTestSuite( org.eclipse.birt.data.engine.odaconsumer.AppContextTest.class);
+		suite.addTestSuite( org.eclipse.birt.data.engine.odaconsumer.BirtOdaAdapterTest.class);
 		suite.addTestSuite( org.eclipse.birt.data.engine.odaconsumer.ConnectionManagerTest.class);
 		suite.addTestSuite( org.eclipse.birt.data.engine.odaconsumer.ConnectionTest.class);
 		suite.addTestSuite( org.eclipse.birt.data.engine.odaconsumer.DataSetCapabilitiesTest.class);

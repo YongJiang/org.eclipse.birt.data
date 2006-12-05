@@ -1804,7 +1804,7 @@ public class SQLDataSetEditorPage extends DataSetWizardPage
 		ruler.addDecorator( 0, lineNumbers );
 		viewer = new SourceViewer( composite, ruler, SWT.H_SCROLL
 				| SWT.V_SCROLL );
-		sourceViewerConfiguration = new JdbcSQLSourceViewerConfiguration( );
+		sourceViewerConfiguration = new JdbcSQLSourceViewerConfiguration( this.getDataSetDesign( ) );
 		viewer.configure( sourceViewerConfiguration );
 
 		doc = new Document( getQueryText( ) );
