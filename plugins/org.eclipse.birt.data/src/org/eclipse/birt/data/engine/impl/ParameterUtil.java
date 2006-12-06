@@ -317,7 +317,6 @@ class ParameterUtil
 		try
 		{
 			paramValue = DataTypeUtil.convert( paramValue, paramType );
-			
 			if( paramValue instanceof Date )
 			{
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
