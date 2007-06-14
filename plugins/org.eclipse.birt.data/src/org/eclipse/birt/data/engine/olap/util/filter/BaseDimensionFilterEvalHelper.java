@@ -17,8 +17,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.birt.core.exception.BirtException;
-import org.eclipse.birt.core.script.JavascriptEvalUtil;
 import org.eclipse.birt.data.engine.api.IBaseExpression;
 import org.eclipse.birt.data.engine.api.IBinding;
 import org.eclipse.birt.data.engine.api.IConditionalExpression;
@@ -123,19 +121,7 @@ public abstract class BaseDimensionFilterEvalHelper implements IJSFilterHelper
 					throw new DataException( ResourceConstants.AXIS_LEVEL_CANNOT_BE_NULL );
 				if ( axisValues[i] == null )
 					throw new DataException( ResourceConstants.AXIS_VALUE_CANNOT_BE_NULL,
-							axisLevels[i].getName( ) );
-				try
-				{// convert raw javascript expression to java object
-					axisValues[i] = JavascriptEvalUtil.evaluateRawScript( cx,
-							scope,
-							axisValues[i].toString( ),
-							"source",
-							0 );
-				}
-				catch ( BirtException e )
-				{
-					throw DataException.wrap( e );
-				}
+							axisLevels[i].getName( ) );				
 			}
 		}
 		this.isAxisFilter = ( axisLevels != null && axisValues != null && axisLevels.length == axisValues.length );
