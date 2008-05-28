@@ -254,7 +254,14 @@ public class DataSourceMetaData implements IDataSetMetaData
 				DataSourceMetaData.class.getName( ),
 				"supportsNamedParameters",
 				"DataSourceMetaData.supportsNamedParameters( )" );
-		return false;
+		try
+		{
+			return dbMetadata.supportsNamedParameters();
+		}
+		catch ( SQLException e )
+		{
+			return false;
+		}
 	}
 
 	/*
