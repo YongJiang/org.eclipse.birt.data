@@ -115,6 +115,7 @@ public class SQLDataSetEditorPage extends DataSetWizardPage
 	private int maxSchemaCount;
 	private int maxTableCountPerSchema;
 	private int timeOutLimit;
+	private boolean enableCodeAssist;
 	boolean prefetchSchema;
 
 	private FilterConfig fc;
@@ -145,6 +146,10 @@ public class SQLDataSetEditorPage extends DataSetWizardPage
 		{
 			prefetchSchema = true;
 		}
+		if ( DateSetPreferencePage.ENABLED.equals( preferences.getString( DateSetPreferencePage.ENABLE_CODE_ASSIST ) ) )
+		{
+			enableCodeAssist = true;
+		}
 		maxSchemaCount = preferences.getInt( DateSetPreferencePage.USER_MAX_NUM_OF_SCHEMA );
 		maxTableCountPerSchema = preferences.getInt( DateSetPreferencePage.USER_MAX_NUM_OF_TABLE_EACH_SCHEMA );
 		timeOutLimit = preferences.getInt( DateSetPreferencePage.USER_TIMEOUT_LIMIT );
@@ -168,6 +173,10 @@ public class SQLDataSetEditorPage extends DataSetWizardPage
 		if ( !preferences.contains( DateSetPreferencePage.SCHEMAS_PREFETCH_CONFIG ) )
 		{
 			preferences.setValue( DateSetPreferencePage.SCHEMAS_PREFETCH_CONFIG, DateSetPreferencePage.ENABLED );
+		}
+		if ( !preferences.contains( DateSetPreferencePage.ENABLE_CODE_ASSIST ) )
+		{
+			preferences.setValue( DateSetPreferencePage.ENABLE_CODE_ASSIST, DateSetPreferencePage.ENABLED );
 		}
 		if ( !preferences.contains( DateSetPreferencePage.USER_MAX_NUM_OF_SCHEMA ) )
 		{
@@ -417,6 +426,7 @@ public class SQLDataSetEditorPage extends DataSetWizardPage
 		GridData gd = new GridData( GridData.FILL_HORIZONTAL );
 		gd.horizontalSpan = 2;
 		schemaCombo.setLayoutData( gd );
+		schemaCombo.setVisibleItemCount( 30 );
 
 		Label FilterLabel = new Label( selectTableGroup, SWT.LEFT );
 		FilterLabel.setText( JdbcPlugin.getResourceString( "tablepage.label.filter" ) );
@@ -463,7 +473,8 @@ public class SQLDataSetEditorPage extends DataSetWizardPage
 								DBNodeUtil.createTreeRoot( availableDbObjectsTree,
 										new RootNode( dataSetDesign.getDataSourceDesign( )
 												.getName( ) ),
-										fc, metadataBidiFormatStr);
+										fc, metadataBidiFormatStr,
+										SQLDataSetEditorPage.this.timeOutLimit * 1000);
 							}
 						} );
 			}
@@ -501,7 +512,8 @@ public class SQLDataSetEditorPage extends DataSetWizardPage
 			DBNodeUtil.createTreeRoot( availableDbObjectsTree,
 					new RootNode( dataSetDesign.getDataSourceDesign( )
 							.getName( ), allSchemaNames ),
-					fc, metadataBidiFormatStr );
+					fc, metadataBidiFormatStr,
+					SQLDataSetEditorPage.this.timeOutLimit * 1000);
 		}
 		else
 		{
@@ -752,7 +764,7 @@ public class SQLDataSetEditorPage extends DataSetWizardPage
 					{
 						item.removeAll( );
 						//bidi_hcg: pass value of metadataBidiFormatStr
-						parent.prepareChildren( fc );
+						parent.prepareChildren( fc, SQLDataSetEditorPage.this.timeOutLimit * 1000 );
 						if ( parent.getChildren( ) != null )
 						{
 							for ( IDBNode child : parent.getChildren( ) )
@@ -915,7 +927,8 @@ public class SQLDataSetEditorPage extends DataSetWizardPage
 		ruler.addDecorator( 0, lineNumbers );
 		viewer = new SourceViewer( composite, ruler, SWT.H_SCROLL
 				| SWT.V_SCROLL );
-		SourceViewerConfiguration svc = new SQLSourceViewerConfiguration( dataSetDesign.getDataSourceDesign( ) );
+		SourceViewerConfiguration svc = new SQLSourceViewerConfiguration( dataSetDesign.getDataSourceDesign( ), 
+				timeOutLimit * 1000, enableCodeAssist );
 		viewer.configure( svc );
 
 		doc = new Document( getQueryText( ) );
