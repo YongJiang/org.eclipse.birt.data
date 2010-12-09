@@ -24,7 +24,7 @@ public class CacheSortTest extends SortTest
 	protected Map getAppContext()
 	{
 		Map appContext = new HashMap();
-		appContext.put( "birt.data.engine.test.memcachesize", "20000" );
+		appContext.put( "birt.data.engine.test.memcachesize", "300" );
 		return appContext;
 	}
 	
