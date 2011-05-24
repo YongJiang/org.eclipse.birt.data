@@ -48,13 +48,11 @@ class MetaDataRetriever
 			query = connection.newQuery( dataSetDesign.getOdaExtensionDataSetId( ) );
 			QuerySpecification querySpec = new QuerySpecificationHelper((String)null).createQuerySpecification();
 			Properties properties = dataSetDesign.getPublicProperties();
-			if( properties!= null )
+			for( Property prop : properties.getProperties())
 			{
-				for( Property prop : properties.getProperties())
-				{
-					querySpec.setProperty( prop.getName(), prop.getValue());
-				}
-			}	
+				querySpec.setProperty( prop.getName(), prop.getValue());
+			}
+			
 			query.setSpecification( querySpec );
 			query.prepare( dataSetDesign.getQueryText( ) );
 			
